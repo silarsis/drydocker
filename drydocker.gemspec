@@ -6,6 +6,7 @@
 
 $LOAD_PATH << File.expand_path("../lib", __FILE__)
 require "drydocker/version"
+require "date"
 
 Gem::Specification.new do |gem|
   gem.name = "drydocker"
@@ -26,14 +27,7 @@ Gem::Specification.new do |gem|
   gem.summary = "Test something in a loop, in a docker container"
   gem.description = "Run tests on change in a docker container continuously"
 
-  gem.add_runtime_dependency("listen", ["~> 2.8"])
-  gem.add_runtime_dependency("ptools", ["~> 1.3"])
-  gem.add_development_dependency("codeclimate-test-reporter", ["~> 0.4"])
-  gem.add_development_dependency("shoulda", ["~> 3.5"])
-  gem.add_development_dependency("rdoc", ["~> 3.12"])
-  gem.add_development_dependency("bundler", ["~> 1.0"])
-  gem.add_development_dependency("simplecov", ["~> 0.9"])
-  gem.add_development_dependency("rspec", ["~> 3.1"])
-  gem.add_development_dependency("fuubar", ["~> 2.0"])
-  gem.add_development_dependency("rake", ["~> 10.4"])
+  gem.required_ruby_version = ">= 3.0"
+  gem.add_development_dependency("minitest", ["~> 5.16"])
+  gem.add_development_dependency("rake", [">= 13.0"])
 end

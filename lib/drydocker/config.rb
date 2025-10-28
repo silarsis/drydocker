@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require "logger"
+require "shellwords"
 
 module Drydocker
   # Configuration file reader
@@ -22,7 +25,7 @@ module Drydocker
       @image = config[:image]
       @name = config[:name] || name_from_image
       @entrypoint = config[:entrypoint]
-      @command = config[:command].shellescape
+      @command = config[:command]
       @path = config[:path]
       @logger = Logger.new(STDERR)
       @logger.level = Logger::DEBUG if config[:verbose]
