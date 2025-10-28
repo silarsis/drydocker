@@ -23,8 +23,8 @@ build:
 
     # Add more steps here:
     - script:
-        name: rspec
-        code: bundle exec rspec spec
+        name: run tests
+        code: bundle exec rake test
 
   after-steps:
     - sherzberg/slack-notify@0.0.11:

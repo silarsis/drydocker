@@ -28,6 +28,14 @@ You can specify particular images to run in and commands to run at command line
 if you need to run your tests in a different way or container. Please refer to
 the output of `drydocker -h` for more information on the flags to use.
 
+## Notes for contributors
+
+- The file watching logic is now bundled with the gem, so you no longer need to
+  install the third-party `listen` gem in order to monitor for changes.
+- The included Dockerfile is validated by automated tests and targets Ruby 3.2
+  with the Docker CLI available in the image.
+- Run `bundle exec rake test` to execute the Minitest-based test suite.
+
 ## Contributing to drydocker
 
 * Check out the latest master to make sure the feature hasn't been implemented or the bug hasn't been fixed yet.

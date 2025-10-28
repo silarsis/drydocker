@@ -29,12 +29,6 @@ rescue Bundler::BundlerError => e
   exit e.status_code
 end
 
-begin
-  require "rspec/core/rake_task"
-  RSpec::Core::RakeTask.new(:spec)
-rescue LoadError
-end
-
 require "rake"
 require "drydocker/version"
 
@@ -45,6 +39,15 @@ Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_files.include("README*")
   rdoc.rdoc_files.include("lib/**/*.rb")
 end
+
+desc "Run the minitest suite"
+task :test do
+  $LOAD_PATH.unshift File.expand_path("test")
+  $LOAD_PATH.unshift File.expand_path("lib")
+  Dir.glob("test/**/*_test.rb").sort.each { |file| require_relative file }
+end
+
+task default: :test
 
 desc "Build gem and dockerfile"
 task build: ["build:gem", "build:docker"]
@@ -60,7 +63,7 @@ namespace :build do
   desc "Build the Docker container"
   task :docker do
     system("docker build -t #{image_name}:#{version} .")
-    system("docker tag -f #{image_name}:#{version} #{image_name}:latest")
+    system("docker tag #{image_name}:#{version} #{image_name}:latest")
   end
 end
 

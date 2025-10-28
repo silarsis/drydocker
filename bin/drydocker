@@ -4,6 +4,7 @@ require "drydocker/version"
 require "drydocker/config"
 require "drydocker/monitor"
 require "optparse"
+require "yaml"
 
 # Command line parser to setup options
 # :name, :command, :image, :entrypoint, :path
@@ -16,7 +17,8 @@ def parse(args)
     opts.separator "Specific options:"
 
     opts.on("-f", "--filename [FILENAME]", "File of options to load") do |fn|
-      options.load(fn)
+      file_options = YAML.safe_load(File.read(fn), permitted_classes: [Symbol], symbolize_names: true) || {}
+      options.merge!(file_options)
     end
 
     opts.on("-n", "--name [NAME]",
